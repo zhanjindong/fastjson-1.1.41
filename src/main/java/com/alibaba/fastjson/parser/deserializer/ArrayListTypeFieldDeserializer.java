@@ -35,7 +35,7 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 
 	public int getFastMatchToken() {
 		if (isImplicit()) {
-			return JSONToken.LITERAL_STRING;
+			return JSONToken.LBRACE;
 		} else {
 			return JSONToken.LBRACKET;
 		}

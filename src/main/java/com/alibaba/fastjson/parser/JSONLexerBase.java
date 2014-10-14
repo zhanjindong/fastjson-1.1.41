@@ -377,6 +377,23 @@ public abstract class JSONLexerBase implements JSONLexer, Closeable {
 		}
 	}
 
+	public final void skipToColon() {
+		for (;;) {
+			if (ch == ':') {
+				next();
+				//nextToken();
+				return;
+			}
+
+			if (ch == ' ' || ch == '\n' || ch == '\r' || ch == '\t' || ch == '\f' || ch == '\b') {
+				next();
+				continue;
+			}
+
+			throw new JSONException("not match " + ":" + " - " + ch);
+		}
+	}
+
 	public final int token() {
 		System.out.println("token:" + tokenName());
 		return token;

@@ -399,8 +399,9 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 		System.out.println("fieldDeserializer.getFastMatchToken():" + fieldDeserializer.getFastMatchToken());
 		if (!fieldDeserializer.isImplicit()) {
 			lexer.nextTokenWithColon(fieldDeserializer.getFastMatchToken());
-		}else {
-			lexer.next();
+		} else {
+			lexer.skipToColon();
+			// lexer.next();
 		}
 		System.out.println("current token:" + lexer.tokenName());
 		System.out.println("next char:" + lexer.getChar());

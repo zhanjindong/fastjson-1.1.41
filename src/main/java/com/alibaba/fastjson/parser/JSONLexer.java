@@ -3,6 +3,8 @@ package com.alibaba.fastjson.parser;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import com.owlike.genson.convert.DefaultConverters.PrimitiveConverterFactory.intConverter;
+
 public interface JSONLexer {
 
 	public final static byte EOI = 0x1A;
@@ -91,5 +93,6 @@ public interface JSONLexer {
 	Collection<String> scanStringArray(Class<?> type, char seperator);
 
 	char getChar();
-
+	
+	void skipToColon();
 }
