@@ -39,12 +39,23 @@ public class FieldInfo implements Comparable<FieldInfo> {
 		}
 	}
 
+	public FieldInfo(String name, boolean implicit, Class<?> declaringClass, Class<?> fieldClass, Type fieldType,
+			Field field) {
+		this(name, declaringClass, fieldClass, fieldType, field);
+		this.implicit = implicit;
+	}
+
 	public FieldInfo(String name, Method method, Field field) {
 		this(name, method, field, null, null);
 	}
 
 	public FieldInfo(String name, boolean implicit, Method method, Field field) {
 		this(name, method, field, null, null);
+		this.implicit = implicit;
+	}
+
+	public FieldInfo(String name, boolean implicit, Method method, Field field, Class<?> clazz, Type type) {
+		this(name, method, field, clazz, type);
 		this.implicit = implicit;
 	}
 

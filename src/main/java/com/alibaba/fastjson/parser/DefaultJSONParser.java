@@ -318,7 +318,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
                     }
 
                     ObjectDeserializer deserializer = config.getDeserializer(clazz);
-                    return deserializer.deserialze(this, clazz, fieldName);
+                    return deserializer.deserialze(this, null, clazz, fieldName);
                 }
 
                 if (key == "$ref") {
@@ -511,7 +511,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
         ObjectDeserializer derializer = config.getDeserializer(type);
 
         try {
-            return (T) derializer.deserialze(this, type, null);
+            return (T) derializer.deserialze(this, null, type, null);
         } catch (JSONException e) {
             throw e;
         } catch (Throwable e) {
@@ -572,7 +572,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
                 }
 
                 if (int.class == type) {
-                    Object val = IntegerCodec.instance.deserialze(this, null, null);
+                    Object val = IntegerCodec.instance.deserialze(this, null, null, null);
                     array.add(val);
                 } else if (String.class == type) {
                     String value;
@@ -595,7 +595,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
                         lexer.nextToken();
                         val = null;
                     } else {
-                        val = deserializer.deserialze(this, type, i);
+                        val = deserializer.deserialze(this, null, type, i);
                     }
                     array.add(val);
                     checkListResolve(array);
@@ -681,7 +681,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
 
                         if (lexer.token() != JSONToken.RBRACKET) {
                             for (;;) {
-                                Object item = derializer.deserialze(this, type, null);
+                                Object item = derializer.deserialze(this, null, type, null);
                                 varList.add(item);
 
                                 if (lexer.token() == JSONToken.COMMA) {
@@ -697,7 +697,7 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
                         value = TypeUtils.cast(varList, type, config);
                     } else {
                         ObjectDeserializer derializer = config.getDeserializer(type);
-                        value = derializer.deserialze(this, type, null);
+                        value = derializer.deserialze(this, null, type, null);
                     }
                 }
             }
@@ -772,18 +772,18 @@ public class DefaultJSONParser extends AbstractJSONParser implements Closeable {
                 Object fieldValue;
                 if (fieldClass == int.class) {
                     lexer.nextTokenWithColon(JSONToken.LITERAL_INT);
-                    fieldValue = IntegerCodec.instance.deserialze(this, fieldType, null);
+                    fieldValue = IntegerCodec.instance.deserialze(this, null, fieldType, null);
                 } else if (fieldClass == String.class) {
                     lexer.nextTokenWithColon(JSONToken.LITERAL_STRING);
                     fieldValue = StringCodec.deserialze(this);
                 } else if (fieldClass == long.class) {
                     lexer.nextTokenWithColon(JSONToken.LITERAL_INT);
-                    fieldValue = LongCodec.instance.deserialze(this, fieldType, null);
+                    fieldValue = LongCodec.instance.deserialze(this, null, fieldType, null);
                 } else {
                     ObjectDeserializer fieldValueDeserializer = config.getDeserializer(fieldClass, fieldType);
 
                     lexer.nextTokenWithColon(fieldValueDeserializer.getFastMatchToken());
-                    fieldValue = fieldValueDeserializer.deserialze(this, fieldType, null);
+                    fieldValue = fieldValueDeserializer.deserialze(this, null, fieldType, null);
                 }
 
                 fieldDeser.setValue(object, fieldValue);

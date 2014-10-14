@@ -5,89 +5,91 @@ import java.util.Collection;
 
 public interface JSONLexer {
 
-    public final static byte EOI            = 0x1A;
-    public final static int  NOT_MATCH      = -1;
-    public final static int  NOT_MATCH_NAME = -2;
-    public final static int  UNKOWN         = 0;
-    public final static int  OBJECT         = 1;
-    public final static int  ARRAY          = 2;
-    public final static int  VALUE          = 3;
-    public final static int  END            = 4;
+	public final static byte EOI = 0x1A;
+	public final static int NOT_MATCH = -1;
+	public final static int NOT_MATCH_NAME = -2;
+	public final static int UNKOWN = 0;
+	public final static int OBJECT = 1;
+	public final static int ARRAY = 2;
+	public final static int VALUE = 3;
+	public final static int END = 4;
 
-    int token();
+	int token();
 
-    String tokenName();
+	String tokenName();
 
-    void skipWhitespace();
+	void skipWhitespace();
 
-    void nextToken();
+	void nextToken();
 
-    void nextToken(int expect);
+	void nextToken(int expect);
 
-    char getCurrent();
+	char getCurrent();
 
-    char next();
+	char next();
 
-    String scanSymbol(final SymbolTable symbolTable);
+	String scanSymbol(final SymbolTable symbolTable);
 
-    String scanSymbol(final SymbolTable symbolTable, final char quote);
+	String scanSymbol(final SymbolTable symbolTable, final char quote);
 
-    void resetStringPosition();
+	void resetStringPosition();
 
-    void scanNumber();
+	void scanNumber();
 
-    int pos();
+	int pos();
 
-    Number integerValue();
+	Number integerValue();
 
-    BigDecimal decimalValue();
+	BigDecimal decimalValue();
 
-    Number decimalValue(boolean decimal);
+	Number decimalValue(boolean decimal);
 
-    String scanSymbolUnQuoted(final SymbolTable symbolTable);
+	String scanSymbolUnQuoted(final SymbolTable symbolTable);
 
-    String stringVal();
+	String stringVal();
 
-    boolean isEnabled(Feature feature);
+	boolean isEnabled(Feature feature);
 
-    void config(Feature feature, boolean state);
+	void config(Feature feature, boolean state);
 
-    void scanString();
+	void scanString();
 
-    Number numberValue();
+	Number numberValue();
 
-    int intValue();
+	int intValue();
 
-    void nextTokenWithColon();
+	void nextTokenWithColon();
 
-    void nextTokenWithColon(int expect);
+	void nextTokenWithColon(int expect);
 
-    boolean isBlankInput();
+	boolean isBlankInput();
 
-    int getBufferPosition();
+	int getBufferPosition();
 
-    void close();
+	void close();
 
-    long longValue();
+	long longValue();
 
-    boolean isRef();
+	boolean isRef();
 
-    String numberString();
+	String numberString();
 
-    byte[] bytesValue();
+	byte[] bytesValue();
 
-    float floatValue();
+	float floatValue();
 
-    long scanLong(char expectNextChar);
+	long scanLong(char expectNextChar);
 
-    int scanInt(char expectNext);
+	int scanInt(char expectNext);
 
-    String scanString(char expectNextChar);
+	String scanString(char expectNextChar);
 
-    Enum<?> scanEnum(Class<?> enumClass, final SymbolTable symbolTable, char serperator);
+	Enum<?> scanEnum(Class<?> enumClass, final SymbolTable symbolTable, char serperator);
 
-    String scanSymbolWithSeperator(final SymbolTable symbolTable, char serperator);
+	String scanSymbolWithSeperator(final SymbolTable symbolTable, char serperator);
 
-    Collection<String> scanStringArray(Class<?> type, char seperator);
+	Collection<String> scanStringArray(Class<?> type, char seperator);
+
+	char getChar();
 
 }

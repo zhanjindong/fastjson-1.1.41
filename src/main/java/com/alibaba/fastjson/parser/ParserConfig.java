@@ -388,85 +388,90 @@ public class ParserConfig {
     }
 
     public ObjectDeserializer createJavaBeanDeserializer(Class<?> clazz, Type type) {
-        boolean asmEnable = this.asmEnable;
-        if (asmEnable) {
-            Class<?> superClass = clazz;
-
-            for (;;) {
-                if (!Modifier.isPublic(superClass.getModifiers())) {
-                    asmEnable = false;
-                    break;
-                }
-
-                superClass = superClass.getSuperclass();
-                if (superClass == Object.class || superClass == null) {
-                    break;
-                }
-            }
-        }
-
-        if (clazz.getTypeParameters().length != 0) {
-            asmEnable = false;
-        }
-
-        if (asmFactory.isExternalClass(clazz)) {
-            asmEnable = false;
-        }
-
-        if (asmEnable) {
-            if (clazz.isInterface()) {
-                asmEnable = false;
-            }
-            DeserializeBeanInfo beanInfo = DeserializeBeanInfo.computeSetters(clazz, type);
-            if (beanInfo.getFieldList().size() > 200) {
-                asmEnable = false;
-            }
-
-            Constructor<?> defaultConstructor = beanInfo.getDefaultConstructor();
-            if (defaultConstructor == null && !clazz.isInterface()) {
-                asmEnable = false;
-            }
-
-            for (FieldInfo fieldInfo : beanInfo.getFieldList()) {
-                if (fieldInfo.isGetOnly()) {
-                    asmEnable = false;
-                    break;
-                }
-
-                Class<?> fieldClass = fieldInfo.getFieldClass();
-                if (!Modifier.isPublic(fieldClass.getModifiers())) {
-                    asmEnable = false;
-                    break;
-                }
-
-                if (fieldClass.isMemberClass() && !Modifier.isStatic(fieldClass.getModifiers())) {
-                    asmEnable = false;
-                }
-            }
-        }
-
-        if (asmEnable) {
-            if (clazz.isMemberClass() && !Modifier.isStatic(clazz.getModifiers())) {
-                asmEnable = false;
-            }
-        }
-
-        if (!asmEnable) {
-            return new JavaBeanDeserializer(this, clazz, type);
-        }
-
-        try {
-            return asmFactory.createJavaBeanDeserializer(this, clazz, type);
-            // } catch (VerifyError e) {
-            // e.printStackTrace();
-            // return new JavaBeanDeserializer(this, clazz, type);
-        } catch (NoSuchMethodException ex) {
-            return new JavaBeanDeserializer(this, clazz, type);
-        } catch (ASMException asmError) {
-            return new JavaBeanDeserializer(this, clazz, type);
-        } catch (Exception e) {
-            throw new JSONException("create asm deserializer error, " + clazz.getName(), e);
-        }
+    	return new JavaBeanDeserializer(this, clazz, type);
+		// boolean asmEnable = this.asmEnable;
+		// if (asmEnable) {
+		// Class<?> superClass = clazz;
+		//
+		// for (;;) {
+		// if (!Modifier.isPublic(superClass.getModifiers())) {
+		// asmEnable = false;
+		// break;
+		// }
+		//
+		// superClass = superClass.getSuperclass();
+		// if (superClass == Object.class || superClass == null) {
+		// break;
+		// }
+		// }
+		// }
+		//
+		// if (clazz.getTypeParameters().length != 0) {
+		// asmEnable = false;
+		// }
+		//
+		// if (asmFactory.isExternalClass(clazz)) {
+		// asmEnable = false;
+		// }
+		//
+		// if (asmEnable) {
+		// if (clazz.isInterface()) {
+		// asmEnable = false;
+		// }
+		// DeserializeBeanInfo beanInfo =
+		// DeserializeBeanInfo.computeSetters(clazz, type);
+		// if (beanInfo.getFieldList().size() > 200) {
+		// asmEnable = false;
+		// }
+		//
+		// Constructor<?> defaultConstructor = beanInfo.getDefaultConstructor();
+		// if (defaultConstructor == null && !clazz.isInterface()) {
+		// asmEnable = false;
+		// }
+		//
+		// for (FieldInfo fieldInfo : beanInfo.getFieldList()) {
+		// if (fieldInfo.isGetOnly()) {
+		// asmEnable = false;
+		// break;
+		// }
+		//
+		// Class<?> fieldClass = fieldInfo.getFieldClass();
+		// if (!Modifier.isPublic(fieldClass.getModifiers())) {
+		// asmEnable = false;
+		// break;
+		// }
+		//
+		// if (fieldClass.isMemberClass() &&
+		// !Modifier.isStatic(fieldClass.getModifiers())) {
+		// asmEnable = false;
+		// }
+		// }
+		// }
+		//
+		// if (asmEnable) {
+		// if (clazz.isMemberClass() &&
+		// !Modifier.isStatic(clazz.getModifiers())) {
+		// asmEnable = false;
+		// }
+		// }
+		//
+		// if (!asmEnable) {
+		// return new JavaBeanDeserializer(this, clazz, type);
+		// }
+		//
+		// try {
+		// return asmFactory.createJavaBeanDeserializer(this, clazz, type);
+		// // } catch (VerifyError e) {
+		// // e.printStackTrace();
+		// // return new JavaBeanDeserializer(this, clazz, type);
+		// } catch (NoSuchMethodException ex) {
+		// return new JavaBeanDeserializer(this, clazz, type);
+		// } catch (ASMException asmError) {
+		// return new JavaBeanDeserializer(this, clazz, type);
+		// } catch (Exception e) {
+		// throw new JSONException("create asm deserializer error, " +
+		// clazz.getName(), e);
+		// }
     }
 
     public FieldDeserializer createFieldDeserializer(ParserConfig mapping, Class<?> clazz, FieldInfo fieldInfo) {

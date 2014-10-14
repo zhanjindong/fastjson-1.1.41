@@ -25,6 +25,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONToken;
+import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 
 /**
@@ -47,7 +48,7 @@ public class ReferenceCodec implements ObjectSerializer, ObjectDeserializer {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type type, Object fieldName) {
         ParameterizedType paramType = (ParameterizedType) type;
         Type itemType = paramType.getActualTypeArguments()[0];
 
