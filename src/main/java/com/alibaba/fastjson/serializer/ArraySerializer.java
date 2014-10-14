@@ -18,10 +18,6 @@ package com.alibaba.fastjson.serializer;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import org.apache.commons.lang.StringUtils;
-
-import com.alibaba.fastjson.annotation.JSONField;
-
 /**
  * @author wenshao<szujobs@hotmail.com>
  */
@@ -61,7 +57,7 @@ public class ArraySerializer implements ObjectSerializer {
 			if (!isImplicit) {
 				out.append('[');
 			} else {
-				implicitItem = parentFieldSerializer.getImplicitItem();
+				implicitItem = parentFieldSerializer.getName();
 			}
 			for (int i = 0; i < size; ++i) {
 				if (i != 0) {

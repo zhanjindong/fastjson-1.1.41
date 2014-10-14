@@ -70,29 +70,7 @@ public abstract class FieldSerializer {
 	}
 
 	public boolean isImplicit() {
-		JSONField field = null;
-		if (fieldInfo.isGetOnly()) {
-			field = fieldInfo.getMethod().getAnnotation(JSONField.class);
-		} else {
-			field = fieldInfo.getField().getAnnotation(JSONField.class);
-		}
-		if (field != null && !StringUtils.isEmpty(field.implicit())) {
-			return true;
-		}
-		return false;
-	}
-
-	public String getImplicitItem() {
-		JSONField field = null;
-		if (fieldInfo.isGetOnly()) {
-			field = fieldInfo.getMethod().getAnnotation(JSONField.class);
-		} else {
-			field = fieldInfo.getField().getAnnotation(JSONField.class);
-		}
-		if (field != null && !StringUtils.isEmpty(field.implicit())) {
-			return field.implicit();
-		}
-		return "";
+		return fieldInfo.isImplicit();
 	}
 
 	public String getName() {

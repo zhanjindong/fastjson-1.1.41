@@ -2,23 +2,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
- <!--  
-	<parent>
-	    <groupId>com.alibaba</groupId>
-	   <artifactId>parent-pom</artifactId>
-	   <version>1.0.0-SNAPSHOT</version>
-	 </parent>
--->
 
 	<groupId>com.alibaba</groupId>
-	<artifactId>fastjson</artifactId>
+	<artifactId>fastjson-iflytek</artifactId>
 	<version>1.1.41</version>
 
 	<packaging>jar</packaging>
 	<name>fastjson</name>
 	<description>Fastjson is a JSON processor (JSON parser + JSON generator) written in Java</description>
 
-	<url>https://github.com/alibaba/fastjson</url>
+	<url>https://github.com/zhanjindong/fastjson-1.1.41</url>
 	<inceptionYear>2012</inceptionYear>
 
 	<properties>
@@ -40,21 +33,32 @@
 			<name>axmanwang</name>
 			<email>iamaxman@hotmail.com</email>
 		</developer>
+		<developer>
+			<id>jdzhan</id>
+			<name>jdzhan</name>
+			<email>jdzhan@live.com</email>
+		</developer>
 	</developers>
 
-	<scm>
-		<url>https://wenshao@github.com/AlibabaTech/fastjson.git</url>
-		<connection>scm:git:https://wenshao@github.com/AlibabaTech/fastjson.git</connection>
-	</scm>
+	<!-- <scm> <url>https://wenshao@github.com/AlibabaTech/fastjson.git</url> 
+		<connection>scm:git:https://wenshao@github.com/AlibabaTech/fastjson.git</connection> 
+		</scm> -->
 
+	<!-- <distributionManagement> <repository> <id>opensesame</id> <url>dav:http://code.alibabatech.com/mvn/releases/</url> 
+		</repository> <snapshotRepository> <id>opensesame</id> <url>dav:http://code.alibabatech.com/mvn/snapshots/</url> 
+		</snapshotRepository> </distributionManagement> -->
+
+	<!-- nexus 私服配置 -->
 	<distributionManagement>
 		<repository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/releases/</url>
+			<id>nexus-releases</id>
+			<name>Releases</name>
+			<url>http://192.168.77.214:9088/nexus/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/snapshots/</url>
+			<id>nexus-snapshots</id>
+			<name>Snapshots</name>
+			<url>http://192.168.77.214:9088/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 

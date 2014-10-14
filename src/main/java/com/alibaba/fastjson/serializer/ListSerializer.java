@@ -66,7 +66,7 @@ public final class ListSerializer implements ObjectSerializer {
 
 		ObjectSerializer itemSerializer = null;
 		boolean isImplicit = parentFieldSerializer.isImplicit();
-		String implicitItem = parentFieldSerializer.getImplicitItem();
+		String implicitItem = parentFieldSerializer.getName();
 		try {
 			if (size > 1 && out.isEnabled(SerializerFeature.PrettyFormat)) {
 				if (!isImplicit) {

@@ -15,266 +15,290 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 public class FieldInfo implements Comparable<FieldInfo> {
 
-    private final String   name;
-    private final Method   method;
-    private final Field    field;
+	private final String name;
+	private final Method method;
+	private final Field field;
 
-    private final Class<?> fieldClass;
-    private final Type     fieldType;
-    private final Class<?> declaringClass;
-    private boolean        getOnly = false;
+	private final Class<?> fieldClass;
+	private final Type fieldType;
+	private final Class<?> declaringClass;
+	private boolean getOnly = false;
+	private boolean implicit = false;
+	private String implicitItem = "";
 
-    public FieldInfo(String name, Class<?> declaringClass, Class<?> fieldClass, Type fieldType, Field field){
-        this.name = name;
-        this.declaringClass = declaringClass;
-        this.fieldClass = fieldClass;
-        this.fieldType = fieldType;
-        this.method = null;
-        this.field = field;
+	public FieldInfo(String name, Class<?> declaringClass, Class<?> fieldClass, Type fieldType, Field field) {
+		this.name = name;
+		this.declaringClass = declaringClass;
+		this.fieldClass = fieldClass;
+		this.fieldType = fieldType;
+		this.method = null;
+		this.field = field;
 
-        if (field != null) {
-            field.setAccessible(true);
-        }
-    }
+		if (field != null) {
+			field.setAccessible(true);
+		}
+	}
 
-    public FieldInfo(String name, Method method, Field field){
-        this(name, method, field, null, null);
-    }
+	public FieldInfo(String name, Method method, Field field) {
+		this(name, method, field, null, null);
+	}
 
-    public FieldInfo(String name, Method method, Field field, Class<?> clazz, Type type){
-        this.name = name;
-        this.method = method;
-        this.field = field;
+	public FieldInfo(String name, boolean implicit, Method method, Field field) {
+		this(name, method, field, null, null);
+		this.implicit = implicit;
+	}
 
-        if (method != null) {
-            method.setAccessible(true);
-        }
+	public FieldInfo(String name, Method method, Field field, Class<?> clazz, Type type) {
+		this.name = name;
+		this.method = method;
+		this.field = field;
 
-        if (field != null) {
-            field.setAccessible(true);
-        }
+		if (method != null) {
+			method.setAccessible(true);
+		}
 
-        Type fieldType;
-        Class<?> fieldClass;
-        if (method != null) {
-            if (method.getParameterTypes().length == 1) {
-                fieldClass = method.getParameterTypes()[0];
-                fieldType = method.getGenericParameterTypes()[0];
-            } else {
-                fieldClass = method.getReturnType();
-                fieldType = method.getGenericReturnType();
-                getOnly = true;
-            }
-            this.declaringClass = method.getDeclaringClass();
-        } else {
-            fieldClass = field.getType();
-            fieldType = field.getGenericType();
-            this.declaringClass = field.getDeclaringClass();
-        }
+		if (field != null) {
+			field.setAccessible(true);
+		}
 
-        if (clazz != null && fieldClass == Object.class && fieldType instanceof TypeVariable) {
-            TypeVariable<?> tv = (TypeVariable<?>) fieldType;
-            Type genericFieldType = getInheritGenericType(clazz, tv);
-            if (genericFieldType != null) {
-                this.fieldClass = TypeUtils.getClass(genericFieldType);
-                this.fieldType = genericFieldType;
-                return;
-            }
-        }
+		Type fieldType;
+		Class<?> fieldClass;
+		if (method != null) {
+			if (method.getParameterTypes().length == 1) {
+				fieldClass = method.getParameterTypes()[0];
+				fieldType = method.getGenericParameterTypes()[0];
+			} else {
+				fieldClass = method.getReturnType();
+				fieldType = method.getGenericReturnType();
+				getOnly = true;
+			}
+			this.declaringClass = method.getDeclaringClass();
+		} else {
+			fieldClass = field.getType();
+			fieldType = field.getGenericType();
+			this.declaringClass = field.getDeclaringClass();
+		}
 
-        Type genericFieldType = getFieldType(clazz, type, fieldType);
+		if (clazz != null && fieldClass == Object.class && fieldType instanceof TypeVariable) {
+			TypeVariable<?> tv = (TypeVariable<?>) fieldType;
+			Type genericFieldType = getInheritGenericType(clazz, tv);
+			if (genericFieldType != null) {
+				this.fieldClass = TypeUtils.getClass(genericFieldType);
+				this.fieldType = genericFieldType;
+				return;
+			}
+		}
 
-        if (genericFieldType != fieldType) {
-            if (genericFieldType instanceof ParameterizedType) {
-                fieldClass = TypeUtils.getClass(genericFieldType);
-            } else if (genericFieldType instanceof Class) {
-                fieldClass = TypeUtils.getClass(genericFieldType);
-            }
-        }
+		Type genericFieldType = getFieldType(clazz, type, fieldType);
 
-        this.fieldType = genericFieldType;
-        this.fieldClass = fieldClass;
-    }
+		if (genericFieldType != fieldType) {
+			if (genericFieldType instanceof ParameterizedType) {
+				fieldClass = TypeUtils.getClass(genericFieldType);
+			} else if (genericFieldType instanceof Class) {
+				fieldClass = TypeUtils.getClass(genericFieldType);
+			}
+		}
 
-    public static Type getFieldType(Class<?> clazz, Type type, Type fieldType) {
-        if (clazz == null || type == null) {
-            return fieldType;
-        }
-        
-        if (fieldType instanceof GenericArrayType) {
-            GenericArrayType genericArrayType = (GenericArrayType) fieldType;
-            Type componentType = genericArrayType.getGenericComponentType();
-            Type componentTypeX = getFieldType(clazz, type, componentType);
-            if (componentType != componentTypeX) {
-                Type fieldTypeX = Array.newInstance(TypeUtils.getClass(componentTypeX), 0).getClass();
-                return fieldTypeX;
-            }
-            
-            return fieldType;
-        }
+		this.fieldType = genericFieldType;
+		this.fieldClass = fieldClass;
+	}
 
-        if (!TypeUtils.isGenericParamType(type)) {
-            return fieldType;
-        }
+	public static Type getFieldType(Class<?> clazz, Type type, Type fieldType) {
+		if (clazz == null || type == null) {
+			return fieldType;
+		}
 
-        if (fieldType instanceof TypeVariable) {
-            ParameterizedType paramType = (ParameterizedType) TypeUtils.getGenericParamType(type);
-            Class<?> parameterizedClass = TypeUtils.getClass(paramType);
-            TypeVariable<?> typeVar = (TypeVariable<?>) fieldType;
+		if (fieldType instanceof GenericArrayType) {
+			GenericArrayType genericArrayType = (GenericArrayType) fieldType;
+			Type componentType = genericArrayType.getGenericComponentType();
+			Type componentTypeX = getFieldType(clazz, type, componentType);
+			if (componentType != componentTypeX) {
+				Type fieldTypeX = Array.newInstance(TypeUtils.getClass(componentTypeX), 0).getClass();
+				return fieldTypeX;
+			}
 
-            for (int i = 0; i < parameterizedClass.getTypeParameters().length; ++i) {
-                if (parameterizedClass.getTypeParameters()[i].getName().equals(typeVar.getName())) {
-                    fieldType = paramType.getActualTypeArguments()[i];
-                    return fieldType;
-                }
-            }
-        }
+			return fieldType;
+		}
 
-        if (fieldType instanceof ParameterizedType) {
-            ParameterizedType parameterizedFieldType = (ParameterizedType) fieldType;
+		if (!TypeUtils.isGenericParamType(type)) {
+			return fieldType;
+		}
 
-            Type[] arguments = parameterizedFieldType.getActualTypeArguments();
-            boolean changed = false;
-            for (int i = 0; i < arguments.length; ++i) {
-                Type feildTypeArguement = arguments[i];
-                if (feildTypeArguement instanceof TypeVariable) {
-                    TypeVariable<?> typeVar = (TypeVariable<?>) feildTypeArguement;
+		if (fieldType instanceof TypeVariable) {
+			ParameterizedType paramType = (ParameterizedType) TypeUtils.getGenericParamType(type);
+			Class<?> parameterizedClass = TypeUtils.getClass(paramType);
+			TypeVariable<?> typeVar = (TypeVariable<?>) fieldType;
 
-                    if (type instanceof ParameterizedType) {
-                        ParameterizedType parameterizedType = (ParameterizedType) type;
-                        for (int j = 0; j < clazz.getTypeParameters().length; ++j) {
-                            if (clazz.getTypeParameters()[j].getName().equals(typeVar.getName())) {
-                                arguments[i] = parameterizedType.getActualTypeArguments()[j];
-                                changed = true;
-                            }
-                        }
-                    }
-                }
-            }
-            if (changed) {
-                fieldType = new ParameterizedTypeImpl(arguments, parameterizedFieldType.getOwnerType(),
-                                                      parameterizedFieldType.getRawType());
-                return fieldType;
-            }
-        }
+			for (int i = 0; i < parameterizedClass.getTypeParameters().length; ++i) {
+				if (parameterizedClass.getTypeParameters()[i].getName().equals(typeVar.getName())) {
+					fieldType = paramType.getActualTypeArguments()[i];
+					return fieldType;
+				}
+			}
+		}
 
-        return fieldType;
-    }
+		if (fieldType instanceof ParameterizedType) {
+			ParameterizedType parameterizedFieldType = (ParameterizedType) fieldType;
 
-    public static Type getInheritGenericType(Class<?> clazz, TypeVariable<?> tv) {
-        Type type = null;
-        GenericDeclaration gd = tv.getGenericDeclaration();
-        do {
-            type = clazz.getGenericSuperclass();
-            if (type == null) {
-                return null;
-            }
-            if (type instanceof ParameterizedType) {
-                ParameterizedType ptype = (ParameterizedType) type;
-                if (ptype.getRawType() == gd) {
-                    TypeVariable<?>[] tvs = gd.getTypeParameters();
-                    Type[] types = ptype.getActualTypeArguments();
-                    for (int i = 0; i < tvs.length; i++) {
-                        if (tvs[i] == tv) return types[i];
-                    }
-                    return null;
-                }
-            }
-            clazz = TypeUtils.getClass(type);
-        } while (type != null);
-        return null;
-    }
+			Type[] arguments = parameterizedFieldType.getActualTypeArguments();
+			boolean changed = false;
+			for (int i = 0; i < arguments.length; ++i) {
+				Type feildTypeArguement = arguments[i];
+				if (feildTypeArguement instanceof TypeVariable) {
+					TypeVariable<?> typeVar = (TypeVariable<?>) feildTypeArguement;
 
-    public String toString() {
-        return this.name;
-    }
+					if (type instanceof ParameterizedType) {
+						ParameterizedType parameterizedType = (ParameterizedType) type;
+						for (int j = 0; j < clazz.getTypeParameters().length; ++j) {
+							if (clazz.getTypeParameters()[j].getName().equals(typeVar.getName())) {
+								arguments[i] = parameterizedType.getActualTypeArguments()[j];
+								changed = true;
+							}
+						}
+					}
+				}
+			}
+			if (changed) {
+				fieldType = new ParameterizedTypeImpl(arguments, parameterizedFieldType.getOwnerType(),
+						parameterizedFieldType.getRawType());
+				return fieldType;
+			}
+		}
 
-    public Class<?> getDeclaringClass() {
-        return declaringClass;
-    }
+		return fieldType;
+	}
 
-    public Class<?> getFieldClass() {
-        return fieldClass;
-    }
+	public static Type getInheritGenericType(Class<?> clazz, TypeVariable<?> tv) {
+		Type type = null;
+		GenericDeclaration gd = tv.getGenericDeclaration();
+		do {
+			type = clazz.getGenericSuperclass();
+			if (type == null) {
+				return null;
+			}
+			if (type instanceof ParameterizedType) {
+				ParameterizedType ptype = (ParameterizedType) type;
+				if (ptype.getRawType() == gd) {
+					TypeVariable<?>[] tvs = gd.getTypeParameters();
+					Type[] types = ptype.getActualTypeArguments();
+					for (int i = 0; i < tvs.length; i++) {
+						if (tvs[i] == tv)
+							return types[i];
+					}
+					return null;
+				}
+			}
+			clazz = TypeUtils.getClass(type);
+		} while (type != null);
+		return null;
+	}
 
-    public Type getFieldType() {
-        return fieldType;
-    }
+	public String toString() {
+		return this.name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Class<?> getDeclaringClass() {
+		return declaringClass;
+	}
 
-    public Method getMethod() {
-        return method;
-    }
+	public Class<?> getFieldClass() {
+		return fieldClass;
+	}
 
-    public Field getField() {
-        return field;
-    }
+	public Type getFieldType() {
+		return fieldType;
+	}
 
-    public int compareTo(FieldInfo o) {
-        return this.name.compareTo(o.name);
-    }
+	public String getName() {
+		return name;
+	}
 
-    public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
-        T annotation = null;
-        if (method != null) {
-            annotation = method.getAnnotation(annotationClass);
-        }
+	public Method getMethod() {
+		return method;
+	}
 
-        if (annotation == null) {
-            if (field != null) {
-                annotation = field.getAnnotation(annotationClass);
-            }
-        }
+	public Field getField() {
+		return field;
+	}
 
-        return annotation;
-    }
+	public int compareTo(FieldInfo o) {
+		return this.name.compareTo(o.name);
+	}
 
-    public String getFormat() {
-        String format = null;
-        JSONField annotation = getAnnotation(JSONField.class);
+	public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
+		T annotation = null;
+		if (method != null) {
+			annotation = method.getAnnotation(annotationClass);
+		}
 
-        if (annotation != null) {
-            format = annotation.format();
+		if (annotation == null) {
+			if (field != null) {
+				annotation = field.getAnnotation(annotationClass);
+			}
+		}
 
-            if (format.trim().length() == 0) {
-                format = null;
-            }
-        }
-        return format;
-    }
+		return annotation;
+	}
 
-    public Object get(Object javaObject) throws IllegalAccessException, InvocationTargetException {
-        if (method != null) {
-            Object value = method.invoke(javaObject, new Object[0]);
-            return value;
-        }
+	public String getFormat() {
+		String format = null;
+		JSONField annotation = getAnnotation(JSONField.class);
 
-        return field.get(javaObject);
-    }
+		if (annotation != null) {
+			format = annotation.format();
 
-    public void set(Object javaObject, Object value) throws IllegalAccessException, InvocationTargetException {
-        if (method != null) {
-            method.invoke(javaObject, new Object[] { value });
-            return;
-        }
+			if (format.trim().length() == 0) {
+				format = null;
+			}
+		}
+		return format;
+	}
 
-        field.set(javaObject, value);
-    }
+	public Object get(Object javaObject) throws IllegalAccessException, InvocationTargetException {
+		if (method != null) {
+			Object value = method.invoke(javaObject, new Object[0]);
+			return value;
+		}
 
-    public void setAccessible(boolean flag) throws SecurityException {
-        if (method != null) {
-            method.setAccessible(flag);
-            return;
-        }
+		return field.get(javaObject);
+	}
 
-        field.setAccessible(flag);
-    }
+	public void set(Object javaObject, Object value) throws IllegalAccessException, InvocationTargetException {
+		if (method != null) {
+			method.invoke(javaObject, new Object[] { value });
+			return;
+		}
 
-    public boolean isGetOnly() {
-        return getOnly;
-    }
+		field.set(javaObject, value);
+	}
+
+	public void setAccessible(boolean flag) throws SecurityException {
+		if (method != null) {
+			method.setAccessible(flag);
+			return;
+		}
+
+		field.setAccessible(flag);
+	}
+
+	public boolean isGetOnly() {
+		return getOnly;
+	}
+
+	public boolean isImplicit() {
+		return implicit;
+	}
+
+	public void setImplicit(boolean implicit) {
+		this.implicit = implicit;
+	}
+
+	public String getImplicitItem() {
+		return implicitItem;
+	}
+
+	public void setImplicitItem(String implicitItem) {
+		this.implicitItem = implicitItem;
+	}
 
 }

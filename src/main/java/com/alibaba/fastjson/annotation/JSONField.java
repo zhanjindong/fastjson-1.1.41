@@ -30,17 +30,17 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 public @interface JSONField {
 
-    String name() default "";
+	String name() default "";
 
-    String format() default "";
-    
-    String implicit() default "";
+	String format() default "";
 
-    boolean serialize() default true;
+	boolean implicit() default false;
 
-    boolean deserialize() default true;
+	boolean serialize() default true;
 
-    SerializerFeature[] serialzeFeatures() default {};
+	boolean deserialize() default true;
 
-    Feature[] parseFeatures() default {};
+	SerializerFeature[] serialzeFeatures() default {};
+
+	Feature[] parseFeatures() default {};
 }
