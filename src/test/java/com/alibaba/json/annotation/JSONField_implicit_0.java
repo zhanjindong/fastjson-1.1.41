@@ -1,6 +1,7 @@
 package com.alibaba.json.annotation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -16,16 +17,13 @@ public class JSONField_implicit_0 extends TestCase {
 
 	public static void main(String[] args) {
 
-		Test0 test = getData();
-		String text = test.toString();
-		String json = JSON.toJSONString(test, SerializerFeature.PrettyFormat);
+		Test0_1 data = getData1();
+		String text = data.toString();
+		String json = JSON.toJSONString(data, SerializerFeature.PrettyFormat);
 		System.out.println(json);
-		Test0 newTest = JSON.parseObject(json, Test0.class, Feature.IgnoreNotMatch);
-		String newText = newTest.toString();
-		System.out.println(newText.equals(text));
-
-		System.out.println(newText);
-		System.out.println(text);
+		Test0_1 newData = JSON.parseObject(json, Test0_1.class, Feature.IgnoreNotMatch);
+		String newText = newData.toString();
+		System.out.println(text.equals(newText));
 	}
 
 	public void test_0() {
@@ -35,6 +33,12 @@ public class JSONField_implicit_0 extends TestCase {
 		Test0 newTest = JSON.parseObject(json, Test0.class, Feature.IgnoreNotMatch);
 		String newText = newTest.toString();
 		Assert.assertEquals(newText, text);
+	}
+
+	public void test_1() {
+		Test0_1 data = getData1();
+		String json = JSON.toJSONString(data, SerializerFeature.PrettyFormat);
+		System.out.println(json);
 	}
 
 	public static Test0 getData() {
@@ -68,6 +72,48 @@ public class JSONField_implicit_0 extends TestCase {
 		test.setItems(items);
 
 		return test;
+	}
+
+	public static Test0_1 getData1() {
+		Test0_1 data = new Test0_1();
+
+		Item[] items = new Item[2];
+		for (int i = 0; i < items.length; i++) {
+			Item item = new Item();
+			item.setItem_int1(i);
+			item.setItem_str1("item_str1 " + i);
+			List<InnerItme> innerItmes = new ArrayList<JSONField_implicit_0.InnerItme>();
+			for (int j = 0; j < 2; j++) {
+				InnerItme innerItme = new InnerItme();
+				innerItme.setInnerItme_int1(10001);
+				innerItme.setInnerItme_str1("innerItme_str1 " + i);
+				innerItmes.add(innerItme);
+			}
+			item.setInnerItmes(innerItmes);
+			items[i] = item;
+
+		}
+		data.setItemArr(items);
+
+		return data;
+	}
+
+	public static class Test0_1 {
+		@JSONField(implicit = true)
+		private Item[] itemArr = new Item[2];
+
+		public Item[] getItemArr() {
+			return itemArr;
+		}
+
+		public void setItemArr(Item[] itemArr) {
+			this.itemArr = itemArr;
+		}
+
+		@Override
+		public String toString() {
+			return "Test0_1 [itemArr=" + Arrays.toString(itemArr) + "]";
+		}
 	}
 
 	public static class Test0 {

@@ -61,9 +61,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_asm"/>
-  <testcase time="0.002" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_no_asm"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_asm"/>
+  <testcase time="0.003" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_no_asm"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_null_1"/>
-  <testcase time="0.002" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_null_asm"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec_null_asm"/>
+  <testcase time="0.002" classname="com.alibaba.json.bvt.DateFieldTest2" name="test_codec"/>
 </testsuite>

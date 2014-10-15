@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.003" errors="0" skipped="0" tests="8" name="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest">
+<testsuite failures="0" time="0.002" errors="0" skipped="0" tests="8" name="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -64,9 +64,9 @@
   <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_null"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_string_error"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_string_error_not_eof"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings_2"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings_2"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings_3"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings_"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings_"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_strings"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_string_error_1"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.deser.ArrayListStringDeserializerTest" name="test_string_error_1"/>
 </testsuite>

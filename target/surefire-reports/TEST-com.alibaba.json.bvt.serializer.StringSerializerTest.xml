@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.001" errors="0" skipped="0" tests="23" name="com.alibaba.json.bvt.serializer.StringSerializerTest">
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="23" name="com.alibaba.json.bvt.serializer.StringSerializerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -80,7 +80,7 @@
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_3"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_4"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_5"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_6"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_6"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_7"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_8"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.StringSerializerTest" name="test_9"/>

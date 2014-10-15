@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.027" errors="0" skipped="0" tests="12" name="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm">
+<testsuite failures="0" time="0.025" errors="0" skipped="0" tests="12" name="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -62,12 +62,12 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase time="0" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_10"/>
-  <testcase time="0.002" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_11"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_11"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_0"/>
   <testcase time="0.003" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_1"/>
-  <testcase time="0.003" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_2"/>
+  <testcase time="0.004" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_2"/>
   <testcase time="0.003" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_3"/>
-  <testcase time="0.004" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_4"/>
+  <testcase time="0.003" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_4"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_5"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_6"/>
   <testcase time="0.001" classname="com.alibaba.json.bvt.compatible.jsonlib.CompatibleTest_noasm" name="test_7"/>

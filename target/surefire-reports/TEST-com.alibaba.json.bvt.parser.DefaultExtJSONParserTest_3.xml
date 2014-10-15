@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.002" errors="0" skipped="0" tests="8" name="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3">
+<testsuite failures="0" time="0.001" errors="0" skipped="0" tests="8" name="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -61,11 +61,11 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_0"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_0"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_1"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_2"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_3"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_4"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_3"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_4"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_5"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_6"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest_3" name="test_7"/>

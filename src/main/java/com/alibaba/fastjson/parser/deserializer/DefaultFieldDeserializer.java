@@ -30,6 +30,7 @@ public class DefaultFieldDeserializer extends FieldDeserializer {
             objContext.setType(objectType);
         }
 
+        //知道当前是否implict以及fieldInfo
         Object value = fieldValueDeserilizer.deserialze(parser, getFieldType(), fieldInfo.getName());
         if (parser.getResolveStatus() == DefaultJSONParser.NeedToResolve) {
             ResolveTask task = parser.getLastResolveTask();
