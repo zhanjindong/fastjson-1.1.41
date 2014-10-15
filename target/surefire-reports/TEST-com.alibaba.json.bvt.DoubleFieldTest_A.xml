@@ -61,6 +61,6 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0" classname="com.alibaba.json.bvt.DoubleFieldTest_A" name="test_codec_null"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.DoubleFieldTest_A" name="test_codec"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.DoubleFieldTest_A" name="test_codec_null"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.DoubleFieldTest_A" name="test_codec"/>
 </testsuite>

@@ -73,7 +73,7 @@
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_ab"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Timestamp_error"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Timestamp_null2"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_BigInteger_same"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_BigInteger_same"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_SqlDate_string"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_SqlDate_error"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_SqlDate_null2"/>
@@ -81,7 +81,7 @@
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Timestamp_string"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Timestamp_null"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_BigDecimal"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Short"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Short"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_BigInteger"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_short"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.TypeUtilsTest" name="test_cast_to_Timestamp"/>

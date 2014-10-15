@@ -62,8 +62,8 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_0"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_1"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_1"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_2"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_3"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_3"/>
   <testcase time="0" classname="com.alibaba.json.bvt.serializer.PropertyFilter_long" name="test_4"/>
 </testsuite>
