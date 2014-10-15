@@ -50,8 +50,11 @@ public class ArraySerializer implements ObjectSerializer {
 		SerialContext context = serializer.getContext();
 		serializer.setContext(context, object, fieldName);
 
-		boolean isImplicit = parentFieldSerializer.isImplicit();
+		boolean isImplicit = false;
 		String implicitItem = "";
+		if (parentFieldSerializer != null) {
+			isImplicit = parentFieldSerializer.isImplicit();
+		}
 
 		try {
 			if (!isImplicit) {

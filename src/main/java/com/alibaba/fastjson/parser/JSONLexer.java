@@ -3,7 +3,7 @@ package com.alibaba.fastjson.parser;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import com.owlike.genson.convert.DefaultConverters.PrimitiveConverterFactory.intConverter;
+import com.alibaba.fastjson.parser.JSONLexerBase.LexerFrame;
 
 public interface JSONLexer {
 
@@ -95,4 +95,8 @@ public interface JSONLexer {
 	char getChar();
 	
 	void skipToColon();
+	
+	LexerFrame saveFrame();
+	
+	void restoreFrame(LexerFrame frame);
 }

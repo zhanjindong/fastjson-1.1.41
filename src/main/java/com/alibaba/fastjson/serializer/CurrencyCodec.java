@@ -6,7 +6,6 @@ import java.util.Currency;
 
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 
 public class CurrencyCodec implements ObjectSerializer, ObjectDeserializer {
@@ -24,7 +23,7 @@ public class CurrencyCodec implements ObjectSerializer, ObjectDeserializer {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type type, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName) {
         String text = (String) parser.parse();
 
         if (text == null || text.length() == 0) {

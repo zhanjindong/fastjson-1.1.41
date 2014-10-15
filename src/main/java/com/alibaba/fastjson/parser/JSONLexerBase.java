@@ -378,10 +378,11 @@ public abstract class JSONLexerBase implements JSONLexer, Closeable {
 	}
 
 	public final void skipToColon() {
+		sp = 0;
 		for (;;) {
 			if (ch == ':') {
 				next();
-				//nextToken();
+				// nextToken();
 				return;
 			}
 
@@ -395,7 +396,6 @@ public abstract class JSONLexerBase implements JSONLexer, Closeable {
 	}
 
 	public final int token() {
-		System.out.println("token:" + tokenName());
 		return token;
 	}
 
@@ -2928,6 +2928,61 @@ public abstract class JSONLexerBase implements JSONLexer, Closeable {
 			}
 		} else {
 			return -result;
+		}
+	}
+
+	public LexerFrame saveFrame() {
+		LexerFrame frame = new LexerFrame();
+		frame.setBp(bp);
+		frame.setCh(ch);
+		frame.setNp(np);
+		frame.setToken(token);
+		return frame;
+	}
+
+	public void restoreFrame(LexerFrame frame) {
+		this.bp = frame.bp;
+		this.ch = frame.getCh();
+		this.np = frame.getNp();
+		this.bp = frame.getBp();
+	}
+
+	public static class LexerFrame {
+		private int token;
+		private char ch;
+		private int bp;
+		private int np;
+
+		public int getToken() {
+			return token;
+		}
+
+		public void setToken(int token) {
+			this.token = token;
+		}
+
+		public char getCh() {
+			return ch;
+		}
+
+		public void setCh(char ch) {
+			this.ch = ch;
+		}
+
+		public int getBp() {
+			return bp;
+		}
+
+		public void setBp(int bp) {
+			this.bp = bp;
+		}
+
+		public int getNp() {
+			return np;
+		}
+
+		public void setNp(int np) {
+			this.np = np;
 		}
 	}
 

@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONLexer;
 import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 import com.alibaba.fastjson.util.TypeUtils;
 
@@ -52,7 +51,7 @@ public class IntegerCodec implements ObjectSerializer, ObjectDeserializer {
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type clazz, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type clazz, Object fieldName) {
         final JSONLexer lexer = parser.getLexer();
 
         if (lexer.token() == JSONToken.NULL) {

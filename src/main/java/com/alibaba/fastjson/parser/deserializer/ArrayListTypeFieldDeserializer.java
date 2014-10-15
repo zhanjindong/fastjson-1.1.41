@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.parser.JSONLexer;
+import com.alibaba.fastjson.parser.JSONLexerBase.LexerFrame;
 import com.alibaba.fastjson.parser.JSONToken;
 import com.alibaba.fastjson.parser.ParseContext;
 import com.alibaba.fastjson.parser.ParserConfig;
@@ -117,10 +118,8 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 		}
 
 		lexer.nextToken(itemFastMatchToken);
-		System.out.println("current token:" + lexer.tokenName());
-		System.out.println("next char:" + lexer.getChar());
 
-		for (int i = 0;i<2; ++i) {
+		for (int i = 0;; ++i) {
 			if (lexer.isEnabled(Feature.AllowArbitraryCommas)) {
 				while (lexer.token() == JSONToken.COMMA) {
 					lexer.nextToken();
@@ -132,22 +131,20 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 				break;
 			}
 
-			Object val = itemTypeDeser.deserialze(parser, this, itemType, i);
+			Object val = itemTypeDeser.deserialze(parser, itemType, i);
 			array.add(val);
-			if (i == 1) {
-				break;
-			}
-			// TODO:调过item name
-			System.out.println("item name:" + getName());
-			System.out.println("current token:" + lexer.tokenName());
-			System.out.println("next char:" + lexer.getChar());
 			if (isImplicit()) {
+				// 保存当前状态
+				LexerFrame frame = lexer.saveFrame();
 				String key = lexer.scanSymbol(parser.getSymbolTable());
+				if (!key.equals(getName())) {
+					// 如果下一个symbol不再属于这个数组，再恢复状态
+					lexer.restoreFrame(frame);
+					break;
+				}
 				lexer.nextToken();
 				lexer.nextToken();
 			}
-			System.out.println("current token:" + lexer.tokenName());
-			System.out.println("next char:" + lexer.getChar());
 
 			parser.checkListResolve(array);
 
@@ -156,16 +153,9 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 				continue;
 			}
 		}
-
-		System.out.println("current token:" + lexer.tokenName());
-		System.out.println("next char:" + lexer.getChar());
 		if (!isImplicit()) {
 			lexer.nextToken(JSONToken.COMMA);
 		}
-		//current token:,
-		//next char:
-		System.out.println("current token:" + lexer.tokenName());
-		System.out.println("next char:" + lexer.getChar());
 	}
 
 }

@@ -9,7 +9,6 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONLexer;
 import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 
 public class InetSocketAddressCodec implements ObjectSerializer, ObjectDeserializer {
@@ -39,7 +38,7 @@ public class InetSocketAddressCodec implements ObjectSerializer, ObjectDeseriali
     }
     
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type clazz, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type clazz, Object fieldName) {
         JSONLexer lexer = parser.getLexer();
 
         if (lexer.token() == JSONToken.NULL) {

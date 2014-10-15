@@ -78,6 +78,9 @@ public class SerializeConfig extends IdentityHashMap<Type, ObjectSerializer> {
 	}
 
 	public ObjectSerializer createJavaBeanSerializer(Class<?> clazz) {
+		if (clazz.isPrimitive()) {
+            throw new JSONException("unsupportd class " + clazz.getName());
+        }
 		return new JavaBeanSerializer(clazz);
 //		if (!Modifier.isPublic(clazz.getModifiers())) {
 //			return new JavaBeanSerializer(clazz);

@@ -32,4 +32,17 @@ public class SerializeConfigTest extends TestCase {
         Assert.assertEquals("{\"@type\":\"java.util.LinkedHashMap\"}",
                             JSON.toJSONString(new LinkedHashMap(), config, SerializerFeature.WriteClassName));
     }
+    
+    public static void main(String[] args){
+    	   SerializeConfig config = new SerializeConfig();
+
+           Exception error = null;
+           try {
+               config.createJavaBeanSerializer(int.class);
+           } catch (Exception ex) {
+        	   ex.printStackTrace();
+               error = ex;
+           }
+           //Assert.assertNotNull(error);
+    }
 }

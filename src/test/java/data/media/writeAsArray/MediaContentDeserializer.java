@@ -7,7 +7,6 @@ import java.util.List;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONLexer;
 import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 
 import data.media.Image;
@@ -20,18 +19,18 @@ public class MediaContentDeserializer implements ObjectDeserializer {
     ImageDeserializer imageDesc  = new ImageDeserializer();
 
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type type, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName) {
         JSONLexer lexer = parser.getLexer();
 
         parser.accept(JSONToken.LBRACKET, JSONToken.LBRACKET);
-        Media media = mediaDeser.deserialze(parser, null, Media.class, "media");
+        Media media = mediaDeser.deserialze(parser, Media.class, "media");
         parser.accept(JSONToken.COMMA, JSONToken.LBRACKET);
         
         parser.accept(JSONToken.LBRACKET, JSONToken.LBRACKET);
         List<Image> images = new ArrayList<Image>();
         int index = 0;
         for (;;) {
-            Image image = imageDesc.deserialze(parser, null, Image.class, index);
+            Image image = imageDesc.deserialze(parser, Image.class, index);
             images.add(image);
             index++;
             if (lexer.token() == JSONToken.COMMA) {

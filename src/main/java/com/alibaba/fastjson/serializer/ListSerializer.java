@@ -65,8 +65,12 @@ public final class ListSerializer implements ObjectSerializer {
 		serializer.setContext(context, object, fieldName);
 
 		ObjectSerializer itemSerializer = null;
-		boolean isImplicit = parentFieldSerializer.isImplicit();
-		String implicitItem = parentFieldSerializer.getName();
+		boolean isImplicit = false;
+		String implicitItem = "";
+		if (parentFieldSerializer != null) {
+			isImplicit = parentFieldSerializer.isImplicit();
+			implicitItem = parentFieldSerializer.getName();
+		}
 		try {
 			if (size > 1 && out.isEnabled(SerializerFeature.PrettyFormat)) {
 				if (!isImplicit) {
@@ -118,9 +122,7 @@ public final class ListSerializer implements ObjectSerializer {
 				} else {
 					if (isImplicit) {
 						out.append("\"" + implicitItem + "\":");
-					} else {
-						serializer.println();
-					}
+					} 
 					Class<?> clazz = item.getClass();
 
 					if (clazz == Integer.class) {
@@ -156,9 +158,7 @@ public final class ListSerializer implements ObjectSerializer {
 			} else {
 				if (isImplicit) {
 					out.append("\"" + implicitItem + "\":");
-				} else {
-					serializer.println();
-				}
+				}  
 				Class<?> clazz = item.getClass();
 
 				if (clazz == Integer.class) {

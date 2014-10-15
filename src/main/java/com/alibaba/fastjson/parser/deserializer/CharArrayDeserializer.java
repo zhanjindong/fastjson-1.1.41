@@ -12,7 +12,7 @@ public class CharArrayDeserializer implements ObjectDeserializer {
     public final static CharArrayDeserializer instance = new CharArrayDeserializer();
 
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type clazz, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type clazz, Object fieldName) {
         return (T) deserialze(parser);
     }
     

@@ -115,7 +115,7 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 		return object;
 	}
 
-	public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type type, Object fieldName) {
+	public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName) {
 		return deserialze(parser, type, fieldName, null);
 	}
 
@@ -219,7 +219,6 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 			for (;;) {
 
 				String key = lexer.scanSymbol(parser.getSymbolTable());
-				System.out.println("scanSymbol result key:" + key);
 
 				if (key == null) {
 					if (lexer.token() == JSONToken.RBRACE) {
@@ -294,7 +293,7 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 
 						Class<?> userType = TypeUtils.loadClass(typeName);
 						ObjectDeserializer deserizer = parser.getConfig().getDeserializer(userType);
-						return (T) deserizer.deserialze(parser, null, userType, fieldName);
+						return (T) deserizer.deserialze(parser, userType, fieldName);
 					} else {
 						throw new JSONException("syntax error");
 					}
@@ -396,15 +395,12 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 			return false;
 		}
 
-		System.out.println("fieldDeserializer.getFastMatchToken():" + fieldDeserializer.getFastMatchToken());
 		if (!fieldDeserializer.isImplicit()) {
 			lexer.nextTokenWithColon(fieldDeserializer.getFastMatchToken());
 		} else {
 			lexer.skipToColon();
 			// lexer.next();
 		}
-		System.out.println("current token:" + lexer.tokenName());
-		System.out.println("next char:" + lexer.getChar());
 
 		fieldDeserializer.parseField(parser, object, objectType, fieldValues);
 

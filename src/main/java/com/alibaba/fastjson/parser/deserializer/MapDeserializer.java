@@ -28,7 +28,7 @@ public class MapDeserializer implements ObjectDeserializer {
     public final static MapDeserializer instance = new MapDeserializer();
 
     @SuppressWarnings("unchecked")
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type type, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName) {
         final JSONLexer lexer = parser.getLexer();
         if (lexer.token() == JSONToken.NULL) {
             lexer.nextToken(JSONToken.COMMA);
@@ -151,7 +151,7 @@ public class MapDeserializer implements ObjectDeserializer {
                         parser.popContext();
                     }
 
-                    return (Map) deserializer.deserialze(parser, null, clazz, fieldName);
+                    return (Map) deserializer.deserialze(parser, clazz, fieldName);
                 }
 
                 Object value;
@@ -253,7 +253,7 @@ public class MapDeserializer implements ObjectDeserializer {
                     lexer.nextToken(keyDeserializer.getFastMatchToken());
                 }
 
-                Object key = keyDeserializer.deserialze(parser, null, keyType, null);
+                Object key = keyDeserializer.deserialze(parser, keyType, null);
 
                 if (lexer.token() != JSONToken.COLON) {
                     throw new JSONException("syntax error, expect :, actual " + lexer.token());
@@ -261,7 +261,7 @@ public class MapDeserializer implements ObjectDeserializer {
 
                 lexer.nextToken(valueDeserializer.getFastMatchToken());
 
-                Object value = valueDeserializer.deserialze(parser, null, valueType, key);
+                Object value = valueDeserializer.deserialze(parser, valueType, key);
 
                 map.put(key, value);
 

@@ -5,7 +5,6 @@ import java.lang.reflect.Type;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.JSONScanner;
 import com.alibaba.fastjson.parser.JSONToken;
-import com.alibaba.fastjson.parser.deserializer.FieldDeserializer;
 import com.alibaba.fastjson.parser.deserializer.ObjectDeserializer;
 
 public class MediaContentDeserializer implements ObjectDeserializer {
@@ -14,7 +13,7 @@ public class MediaContentDeserializer implements ObjectDeserializer {
     private final char[] mediaPrefix = "\"media\":".toCharArray();
     private final char[] imagePrefix = "\"images\":".toCharArray();
 
-    public <T> T deserialze(DefaultJSONParser parser, FieldDeserializer fieldDeserializer, Type clazz, Object fieldName) {
+    public <T> T deserialze(DefaultJSONParser parser, Type clazz, Object fieldName) {
         final JSONScanner lexer = (JSONScanner) parser.getLexer();
         
         MediaContent object = new MediaContent();
@@ -23,10 +22,10 @@ public class MediaContentDeserializer implements ObjectDeserializer {
         if (mediaDeserializer == null) {
             //mediaDeserializer = parser.getMapping().getDeserializer(ObjectDeserializer.class);
         }
-        mediaDeserializer.deserialze(parser, null, clazz, null);
+        mediaDeserializer.deserialze(parser, clazz, null);
         
         lexer.matchField(imagePrefix);
-        imageDeserializer.deserialze(parser, null, clazz, null);
+        imageDeserializer.deserialze(parser, clazz, null);
         
 //        if (lexer.token() != JSONToken.RBRACE)
         
