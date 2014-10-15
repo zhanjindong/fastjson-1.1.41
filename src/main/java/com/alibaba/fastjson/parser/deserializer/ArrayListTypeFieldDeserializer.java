@@ -138,7 +138,7 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 				LexerFrame frame = lexer.saveFrame();
 				String key = lexer.scanSymbol(parser.getSymbolTable());
 				if (!key.equals(getName())) {
-					// 如果下一个symbol不再属于这个数组，再恢复状态
+					// 如果下一个symbol不再属于这个列表，再恢复状态
 					lexer.restoreFrame(frame);
 					break;
 				}
