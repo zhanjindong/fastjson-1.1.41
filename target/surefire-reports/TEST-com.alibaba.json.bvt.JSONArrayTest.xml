@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0" errors="0" skipped="0" tests="11" name="com.alibaba.json.bvt.JSONArrayTest">
+<testsuite failures="0" time="0.002" errors="0" skipped="0" tests="11" name="com.alibaba.json.bvt.JSONArrayTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -70,6 +70,6 @@
   <testcase time="0" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_getArray"/>
   <testcase time="0" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_getObject"/>
   <testcase time="0" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_toJSONString"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_toString"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_getJavaBean"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_toString"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.JSONArrayTest" name="test_getJavaBean"/>
 </testsuite>

@@ -189,13 +189,13 @@ public class DeserializeBeanInfo {
 			}
 
 			if (annotation != null) {
+				implicit = annotation.implicit();
 				if (!annotation.deserialize()) {
 					continue;
 				}
 
 				if (annotation.name().length() != 0) {
 					String propertyName = annotation.name();
-					implicit = annotation.implicit();
 					beanInfo.add(new FieldInfo(propertyName, implicit, method, null, clazz, type));
 					method.setAccessible(true);
 					continue;
@@ -232,8 +232,10 @@ public class DeserializeBeanInfo {
 			if (field != null) {
 				JSONField fieldAnnotation = field.getAnnotation(JSONField.class);
 
-				if (fieldAnnotation != null && fieldAnnotation.name().length() != 0) {
-					propertyName = fieldAnnotation.name();
+				if (fieldAnnotation != null) {
+					if (fieldAnnotation.name().length() != 0) {
+						propertyName = fieldAnnotation.name();
+					}
 					implicit = fieldAnnotation.implicit();
 					beanInfo.add(new FieldInfo(propertyName, implicit, method, field, clazz, type));
 					continue;
@@ -266,10 +268,13 @@ public class DeserializeBeanInfo {
 
 			JSONField fieldAnnotation = field.getAnnotation(JSONField.class);
 
-			if (fieldAnnotation != null && fieldAnnotation.name().length() != 0) {
-				propertyName = fieldAnnotation.name();
+			if (fieldAnnotation != null) {
+				if (fieldAnnotation.name().length() != 0) {
+					propertyName = fieldAnnotation.name();
+				}
 				implicit = fieldAnnotation.implicit();
-			}else {
+
+			} else {
 				implicit = false;
 			}
 			beanInfo.add(new FieldInfo(propertyName, implicit, null, field, clazz, type));

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0" errors="0" skipped="0" tests="15" name="com.alibaba.json.bvt.LexerTest">
+<testsuite failures="0" time="0.088" errors="0" skipped="0" tests="15" name="com.alibaba.json.bvt.LexerTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -67,11 +67,11 @@
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_big_integer_1"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_big_integer_2"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_big_integer_3"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_number"/>
+  <testcase time="0.085" classname="com.alibaba.json.bvt.LexerTest" name="test_number"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_string"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_string2"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_string3"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_string4"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.LexerTest" name="test_string2"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.LexerTest" name="test_string3"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.LexerTest" name="test_string4"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_isWhitespace"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_empty"/>
   <testcase time="0" classname="com.alibaba.json.bvt.LexerTest" name="test_error"/>

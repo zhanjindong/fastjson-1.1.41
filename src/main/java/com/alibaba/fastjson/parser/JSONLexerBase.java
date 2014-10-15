@@ -2941,10 +2941,10 @@ public abstract class JSONLexerBase implements JSONLexer, Closeable {
 	}
 
 	public void restoreFrame(LexerFrame frame) {
-		this.bp = frame.bp;
 		this.ch = frame.getCh();
 		this.np = frame.getNp();
 		this.bp = frame.getBp();
+		this.token = frame.getToken();
 	}
 
 	public static class LexerFrame {

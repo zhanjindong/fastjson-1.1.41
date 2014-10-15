@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0" errors="0" skipped="0" tests="12" name="com.alibaba.json.bvt.NumberFieldTest">
+<testsuite failures="0" time="0.011" errors="0" skipped="0" tests="12" name="com.alibaba.json.bvt.NumberFieldTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -61,16 +61,16 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_2_asm"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_3_asm"/>
+  <testcase time="0.004" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_2_asm"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_3_asm"/>
   <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_cast"/>
   <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_null"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_3_no_asm"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_null_1_asm"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_no_asm"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_3_no_asm"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_null_1_asm"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_no_asm"/>
   <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_null_1"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_min_asm"/>
+  <testcase time="0.002" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_min_asm"/>
   <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_min_no_asm"/>
   <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec_2_no_asm"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.NumberFieldTest" name="test_codec"/>
 </testsuite>

@@ -116,7 +116,6 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 			itemTypeDeser = deserializer = parser.getConfig().getDeserializer(itemType);
 			itemFastMatchToken = deserializer.getFastMatchToken();
 		}
-
 		lexer.nextToken(itemFastMatchToken);
 
 		for (int i = 0;; ++i) {
@@ -137,7 +136,7 @@ public class ArrayListTypeFieldDeserializer extends FieldDeserializer {
 				// 保存当前状态
 				LexerFrame frame = lexer.saveFrame();
 				String key = lexer.scanSymbol(parser.getSymbolTable());
-				if (!key.equals(getName())) {
+				if (!getName().equals(key)) {
 					// 如果下一个symbol不再属于这个列表，再恢复状态
 					lexer.restoreFrame(frame);
 					break;

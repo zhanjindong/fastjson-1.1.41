@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.004" errors="0" skipped="0" tests="11" name="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest">
+<testsuite failures="0" time="0.008" errors="0" skipped="0" tests="11" name="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -63,13 +63,13 @@
   </properties>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="testCastCalendar"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_not_match_error"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_casterror2"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_casterror2"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="testCast"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_parseArrayWithType"/>
+  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_parseArrayWithType"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_error2"/>
-  <testcase time="0.003" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_parseObject"/>
+  <testcase time="0.004" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_parseObject"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_parseArrayWithType_error_1"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_casterror"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_not_match"/>
-  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_error"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_not_match"/>
+  <testcase time="0.002" classname="com.alibaba.json.bvt.parser.DefaultExtJSONParserTest" name="test_error"/>
 </testsuite>

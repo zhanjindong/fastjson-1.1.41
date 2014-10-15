@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.001" errors="0" skipped="0" tests="5" name="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date">
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="5" name="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Java\jdk1.7.0_67\jre\bin"/>
@@ -62,7 +62,7 @@
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_date"/>
-  <testcase time="0.001" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_dateFormat"/>
+  <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_dateFormat"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_date2"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_date3"/>
   <testcase time="0" classname="com.alibaba.json.bvt.parser.DefaultJSONParserTest_date" name="test_date4"/>
