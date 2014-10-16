@@ -121,6 +121,24 @@ public class JSONSerializer {
 		return context;
 	}
 
+	public boolean isInFirst() {
+		if (context != null) {
+			if (context.getParent() != null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean isOutFirst() {
+		if (context != null) {
+			if (context.getParent() != null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	public void setContext(SerialContext context) {
 		this.context = context;
 	}

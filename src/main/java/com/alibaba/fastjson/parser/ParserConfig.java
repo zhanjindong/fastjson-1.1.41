@@ -533,10 +533,6 @@ public class ParserConfig {
 			return new ArrayListTypeFieldDeserializer(mapping, clazz, fieldInfo);
 		}
 		
-		if (fieldClass.isArray()) {
-			return new DefaultFieldDeserializer(mapping, clazz, fieldInfo);
-		}
-
 		return new DefaultFieldDeserializer(mapping, clazz, fieldInfo);
 	}
 

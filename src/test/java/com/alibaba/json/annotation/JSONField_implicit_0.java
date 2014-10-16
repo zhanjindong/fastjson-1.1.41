@@ -10,6 +10,7 @@ import org.junit.Assert;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
 import com.alibaba.fastjson.parser.Feature;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
@@ -17,13 +18,6 @@ public class JSONField_implicit_0 extends TestCase {
 
 	public static void main(String[] args) {
 
-		Test0_1 data = getData1();
-		String text = data.toString();
-		String json = JSON.toJSONString(data, SerializerFeature.PrettyFormat);
-		System.out.println(json);
-		Test0_1 newData = JSON.parseObject(json, Test0_1.class, Feature.IgnoreNotMatch);
-		String newText = newData.toString();
-		System.out.println(text.equals(newText));
 	}
 
 	public void test_0() {

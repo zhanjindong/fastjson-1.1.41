@@ -14,6 +14,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 @Target({ ElementType.TYPE })
 public @interface JSONType {
 
+	String name() default "";
+
 	boolean asm() default true;
 
 	String[] orders() default {};

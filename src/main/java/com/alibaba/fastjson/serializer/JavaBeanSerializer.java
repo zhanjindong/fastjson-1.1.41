@@ -26,6 +26,7 @@ import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.annotation.JSONType;
 import com.alibaba.fastjson.util.FieldInfo;
 import com.alibaba.fastjson.util.TypeUtils;
 
@@ -37,6 +38,9 @@ public class JavaBeanSerializer implements ObjectSerializer {
 	// serializers
 	private final FieldSerializer[] getters;
 	private final FieldSerializer[] sortedGetters;
+
+	private boolean hasRoot = false;
+	private String rootName = "";
 
 	public FieldSerializer[] getGetters() {
 		return getters;
@@ -60,6 +64,13 @@ public class JavaBeanSerializer implements ObjectSerializer {
 	}
 
 	public JavaBeanSerializer(Class<?> clazz, Map<String, String> aliasMap) {
+		{
+			JSONType jt = clazz.getAnnotation(JSONType.class);
+			if (jt != null && !jt.name().equals("")) {
+				hasRoot = true;
+				rootName = jt.name();
+			}
+		}
 		{
 			List<FieldSerializer> getterList = new ArrayList<FieldSerializer>();
 			List<FieldInfo> fieldInfoList = TypeUtils.computeGetters(clazz, aliasMap, false);
@@ -114,9 +125,13 @@ public class JavaBeanSerializer implements ObjectSerializer {
 		final boolean writeAsArray = serializer.isWriteAsArray(object, fieldType);
 
 		try {
+
 			final char startSeperator = writeAsArray ? '[' : '{';
 			final char endSeperator = writeAsArray ? ']' : '}';
 			out.append(startSeperator);
+			if (hasRoot && serializer.isInFirst()) {
+				out.append("\"" + rootName + "\":{");
+			}
 
 			if (getters.length > 0 && out.isEnabled(SerializerFeature.PrettyFormat)) {
 				serializer.incrementIndent();
@@ -209,6 +224,9 @@ public class JavaBeanSerializer implements ObjectSerializer {
 			}
 
 			out.append(endSeperator);
+			if (hasRoot && serializer.isOutFirst()) {
+				out.append(endSeperator);
+			}
 		} catch (Exception e) {
 			throw new JSONException("write javaBean error", e);
 		} finally {

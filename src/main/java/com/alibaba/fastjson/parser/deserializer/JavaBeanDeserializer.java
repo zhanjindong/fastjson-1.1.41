@@ -12,6 +12,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.annotation.JSONType;
 import com.alibaba.fastjson.parser.DefaultJSONParser;
 import com.alibaba.fastjson.parser.DefaultJSONParser.ResolveTask;
 import com.alibaba.fastjson.parser.Feature;
@@ -32,6 +33,9 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 	private final List<FieldDeserializer> sortedFieldDeserializers = new ArrayList<FieldDeserializer>();
 	private final Class<?> clazz;
 
+	private boolean hasRoot = false;
+	private String rootName = "";
+
 	private DeserializeBeanInfo beanInfo;
 
 	public JavaBeanDeserializer(ParserConfig config, Class<?> clazz) {
@@ -39,6 +43,13 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 	}
 
 	public JavaBeanDeserializer(ParserConfig config, Class<?> clazz, Type type) {
+		{
+			JSONType jt = clazz.getAnnotation(JSONType.class);
+			if (jt != null && !jt.name().equals("")) {
+				hasRoot = true;
+				rootName = jt.name();
+			}
+		}
 		this.clazz = clazz;
 
 		beanInfo = DeserializeBeanInfo.computeSetters(clazz, type);
@@ -171,6 +182,11 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 	public <T> T deserialze(DefaultJSONParser parser, Type type, Object fieldName, Object object) {
 		final JSONLexer lexer = parser.getLexer(); // xxx
 
+		if (hasRoot && parser.isInFirst()) {
+			lexer.scanSymbol(parser.getSymbolTable());
+			lexer.nextToken(JSONToken.LBRACE);
+			lexer.nextToken();
+		}
 		if (lexer.token() == JSONToken.NULL) {
 			lexer.nextToken(JSONToken.COMMA);
 			return null;
@@ -363,6 +379,11 @@ public class JavaBeanDeserializer implements ObjectDeserializer {
 								+ beanInfo.getFactoryMethod().toString(), e);
 					}
 				}
+			}
+
+			// }}
+			if (hasRoot && parser.isOutFirst()) {
+				lexer.nextToken(JSONToken.RBRACE);
 			}
 
 			return (T) object;
