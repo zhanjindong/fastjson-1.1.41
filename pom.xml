@@ -11,7 +11,7 @@
 
 	<packaging>jar</packaging>
 	<name>fastjson</name>
-	<description>Fastjson is a JSON processor (JSON parser + JSON generator) written in Java</description>
+	<description>Fastjson is a JSON processor (JSON parser + JSON generator) written in Java. forked from alibaba/fastjson</description>
 
 	<url>https://github.com/zhanjindong/fastjson-1.1.41</url>
 	<inceptionYear>2012</inceptionYear>
