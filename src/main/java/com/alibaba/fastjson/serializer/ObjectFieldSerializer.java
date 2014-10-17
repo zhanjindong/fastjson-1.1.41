@@ -15,7 +15,6 @@
  */
 package com.alibaba.fastjson.serializer;
 
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 import com.alibaba.fastjson.annotation.JSONField;

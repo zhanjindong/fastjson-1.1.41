@@ -81,6 +81,9 @@ public final class ListSerializer implements ObjectSerializer {
 				for (int i = 0; i < size; ++i) {
 					if (i != 0) {
 						out.append(',');
+						if (isImplicit) {
+							serializer.println();
+						}
 					}
 
 					if (isImplicit) {
@@ -103,9 +106,9 @@ public final class ListSerializer implements ObjectSerializer {
 						serializer.getWriter().writeNull();
 					}
 				}
-				serializer.decrementIdent();
-				serializer.println();
 				if (!isImplicit) {
+					serializer.decrementIdent();
+					serializer.println();
 					out.append(']');
 				}
 				return;

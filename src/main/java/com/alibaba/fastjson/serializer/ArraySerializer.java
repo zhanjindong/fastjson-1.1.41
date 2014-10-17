@@ -65,6 +65,9 @@ public class ArraySerializer implements ObjectSerializer {
 			for (int i = 0; i < size; ++i) {
 				if (i != 0) {
 					out.append(',');
+					if (isImplicit) {
+						serializer.println();
+					}
 				}
 				Object item = array[i];
 
