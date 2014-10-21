@@ -12,19 +12,17 @@ import com.alibaba.fastjson.annotation.JSONType;
 public class Debug {
 
 	public static void main(String[] args) {
-		String json = JSON.toJSONString(new A(), true);
+		A a = new A();
+		System.out.println(a);
+		String json = JSON.toJSONString(a, false);
 		System.out.println(json);
 
-		// json = JSON.toJSONString(new A1());
-		// System.out.println(json);
-		//
-		// Map<String, String> map = new HashMap<String, String>();
-		// map.put("key", "value");
-		// json = JSON.toJSONString(map);
-		// System.out.println(json);
+		A newA = JSON.parseObject(json, A.class);
+		System.out.println(newA);
+
 	}
 
-	@JSONType(asm = false)
+	@JSONType(asm = true, name = "root")
 	public static class A {
 		public String str = "str";
 
@@ -57,11 +55,22 @@ public class Debug {
 		public String getStr3() {
 			return "stre";
 		}
+
+		@Override
+		public String toString() {
+			return "A [str=" + str + ", list=" + list + "]";
+		}
+
 	}
 
 	@JSONType(asm = true)
 	public static class A1 {
 		public String str = "str";
+
+		@Override
+		public String toString() {
+			return "A1 [str=" + str + "]";
+		}
 	}
 
 }

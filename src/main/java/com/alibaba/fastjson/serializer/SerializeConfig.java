@@ -60,10 +60,9 @@ public class SerializeConfig extends IdentityHashMap<Type, ObjectSerializer> {
 	private boolean asm = !ASMUtils.isAndroid();;
 
 	private final ASMSerializerFactory asmFactory = new ASMSerializerFactory();
-	
 
 	private String typeKey = JSON.DEFAULT_TYPE_KEY;
-	
+
 	public String getTypeKey() {
 		return typeKey;
 	}
@@ -72,47 +71,48 @@ public class SerializeConfig extends IdentityHashMap<Type, ObjectSerializer> {
 		this.typeKey = typeKey;
 	}
 
-	public final ObjectSerializer createASMSerializer(Class<?> clazz)
-			throws Exception {
+	public final ObjectSerializer createASMSerializer(Class<?> clazz) throws Exception {
 		return asmFactory.createJavaBeanSerializer(clazz);
 	}
 
 	public ObjectSerializer createJavaBeanSerializer(Class<?> clazz) {
-		if (clazz.isPrimitive()) {
-            throw new JSONException("unsupportd class " + clazz.getName());
-        }
+		// if (clazz.isPrimitive()) {
+		// throw new JSONException("unsupportd class " + clazz.getName());
+		// }
+		// return new JavaBeanSerializer(clazz);
+		if (!Modifier.isPublic(clazz.getModifiers())) {
+			return new JavaBeanSerializer(clazz);
+		}
+
+		boolean asm = this.asm;
+
+		if (asm && asmFactory.isExternalClass(clazz) || clazz == Serializable.class || clazz == Object.class) {
+			asm = false;
+		}
+
+		{
+			JSONType annotation = clazz.getAnnotation(JSONType.class);
+			if (annotation != null) {
+				if (annotation.asm() == false || !"".equalsIgnoreCase(annotation.name())) {// modify
+																							// by
+																							// jdzhan
+					asm = false;
+				}
+			}
+		}
+
+		if (asm) {
+			try {
+				return createASMSerializer(clazz);
+			} catch (ClassCastException e) {
+				// skip
+				return new JavaBeanSerializer(clazz);
+			} catch (Throwable e) {
+				throw new JSONException("create asm serializer error, class " + clazz, e);
+			}
+		}
+
 		return new JavaBeanSerializer(clazz);
-//		if (!Modifier.isPublic(clazz.getModifiers())) {
-//			return new JavaBeanSerializer(clazz);
-//		}
-//
-//		boolean asm = this.asm;
-//
-//		if (asm && asmFactory.isExternalClass(clazz)
-//				|| clazz == Serializable.class || clazz == Object.class) {
-//			asm = false;
-//		}
-//
-//		{
-//			JSONType annotation = clazz.getAnnotation(JSONType.class);
-//			if (annotation != null && annotation.asm() == false) {
-//				asm = false;
-//			}
-//		}
-//
-//		if (asm) {
-//			try {
-//				return createASMSerializer(clazz);
-//			} catch (ClassCastException e) {
-//				// skip
-//				return new JavaBeanSerializer(clazz);
-//			} catch (Throwable e) {
-//				throw new JSONException("create asm serializer error, class "
-//						+ clazz, e);
-//			}
-//		}
-//
-//		return new JavaBeanSerializer(clazz);
 	}
 
 	public boolean isAsmEnable() {
@@ -181,7 +181,7 @@ public class SerializeConfig extends IdentityHashMap<Type, ObjectSerializer> {
 		put(AtomicReference.class, ReferenceCodec.instance);
 		put(AtomicIntegerArray.class, AtomicIntegerArrayCodec.instance);
 		put(AtomicLongArray.class, AtomicLongArrayCodec.instance);
-		
+
 		put(WeakReference.class, ReferenceCodec.instance);
 		put(SoftReference.class, ReferenceCodec.instance);
 
@@ -190,8 +190,7 @@ public class SerializeConfig extends IdentityHashMap<Type, ObjectSerializer> {
 			put(Class.forName("java.awt.Color"), ColorCodec.instance);
 			put(Class.forName("java.awt.Font"), FontCodec.instance);
 			put(Class.forName("java.awt.Point"), PointCodec.instance);
-			put(Class.forName("java.awt.Rectangle"),
-					RectangleCodec.instance);
+			put(Class.forName("java.awt.Rectangle"), RectangleCodec.instance);
 		} catch (Throwable e) {
 			// skip
 		}
