@@ -11,6 +11,6 @@ Benchmark
 --------
 https://github.com/eishay/jvm-serializers/wiki
 
-已知问题：
+已知问题
 --------
 开启ASM不支持@JSONType的name和@JSONField的implict.
